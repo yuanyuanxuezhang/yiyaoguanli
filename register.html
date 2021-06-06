@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <body>
+		
+		<div class="container">
+			
+			<div class="content">
+				<div class="job_main clearfix">
+					<div class="job_title">
+						<a href="javascript:;">注册</a>
+					</div>
+					<div class="regist_main">
+						<h3>会员注册！已有账号？<a href="login.html">现在登录</a></h3>
+						<ul>
+							<li>
+								<span class="regist_l">用户名   <em>*</em></span>
+								<input id="usename" type="text" />
+								<span class="regist_r">6~20个字符，可使用字母、数字、下划线</span>
+							</li>
+							<li>
+								<span class="regist_l">密码   <em>*</em></span>
+								<input id="password" type="text" />
+								<span class="regist_r">6~16个字符，区分大小写</span>
+							</li>
+							<li>
+								<span  class="regist_l">重复密码   <em>*</em></span>
+								<input id="passwordok" type="text" />
+							</li>
+							<li>
+								<span class="regist_l">邮箱   <em>*</em></span>
+								<input id="email" type="text" />
+							</li>
+							
+							<li>
+								<a id="register" href="javascript:;" class="regist_ok">注册</a>
+							</li>
+						</ul>
+					</div>
+				
+				</div>
+			</div>
+			
+		</div>
+        <script>
+            document.getElementById('register').onclick = function () {
+                // alert(document.getElementById("tgn1").value + document.getElementById('tgn2').value);
+    
+                //此部分是方便程序员调试时查看向后端发送的数据
+                alert("用户名=" +  document.getElementById('usename').value+"&"+"password=" +document.getElementById('password').value
+                +"&"+'确认密码='+document.getElementById('passwordok').value+"&"+'邮箱='+document.getElementById('email').value);
+    
+    
+                var xmlRequest = new XMLHttpRequest();
+                xmlRequest.open("POST", "/api/tg", true);
+    
+                xmlRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    
+                //发送到后端的值
+                xmlRequest.send("用户名=" +  document.getElementById('usename').value+"&"+"password=" +document.getElementById('password').value
+                +"&"+'确认密码='+document.getElementById('passwordok').value+"&"+'邮箱='+document.getElementById('email').value
+                );
+            }
+        </script>
+		
+	</body>
+</body>
+</html>

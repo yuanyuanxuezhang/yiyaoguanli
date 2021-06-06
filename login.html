@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layui/layui.js"></script>
+    <style>
+        #loginbox {
+            width: 30%;
+            height: auto;
+            margin: 0 auto;
+            margin-top: 15%;
+            text-align: center;
+            background: #3a383860;
+            padding: 20px 50px;
+        }
+
+        #login {
+            margin-left: 9%;
+        }
+
+        body {
+            background: url('https://api.mz-moe.cn/img.php') no-repeat;
+            background-size: 100% auto;
+            /*设置背景图片*/
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loginbox">
+        <form action="" class="layui-form">
+            <h1>医药管理系统</h1><br>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><b>用户名</b></label>
+                <div class="layui-input-block">
+                    <input id="useid" type="text" class="layui-input layui-input-inline" placeholder="请输入用户名">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><b>密码</b></label>
+                <div class="layui-input-block">
+                    <input id="password" type="password" class="layui-input layui-input-inline" required
+                        placeholder="请输入用户密码">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block" id="login">
+                    <a href="javascript:;" id="login1" class="layui-btn" lay-submit lay-filter="formDemo">登录</a>
+                    <a href="javascript:;" type="reset" class="layui-btn layui-btn-primary">重置</a>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <script src="denlu.js"></script>
+    <script>
+        layui.use('form', function () {
+            var form = layui.form;
+            form.render();
+        });
+    </script>
+
+    <script>
+        document.getElementById('login1').onclick = function () {
+            // alert(document.getElementById("tgn1").value + document.getElementById('tgn2').value);
+
+            //此部分是方便程序员调试时查看向后端发送的数据
+            // alert("id=" +  document.getElementById('useid').value+"&"+"password=" +document.getElementById('password').value);
+
+
+
+            var login1 = document.getElementById('login1');
+            var useid = document.getElementById("useid");
+            var password = document.getElementById("password");
+
+            login1.onclick = function () {
+                // alert(useid.value);
+                if (useid.value == 1 && password.value == 1) {
+                    self.location = 'in.html';
+                }
+                if (useid.value == 2 && password.value == 2) {
+                    self.location = 'chuku.html';
+                }
+                if (useid.value == 3 && password.value == 3) {
+                    self.location = 'doctor.html';
+                }
+            }
+
+
+
+            var xmlRequest = new XMLHttpRequest();
+            xmlRequest.open("POST", "/api/tg", true);
+
+            xmlRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            //发送到后端的值
+            xmlRequest.send("id=" + document.getElementById('useid').value + "&" + "password=" + document.getElementById('password').value);
+        }
+    </script>
+</body>
+
+</html>

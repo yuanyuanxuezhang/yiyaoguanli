@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>出库</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+
+<body>
+    <table class="layui-hide" id="test" lay-filter="test">
+
+    </table>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">ID</label>
+            <div class="layui-input-inline">
+              <input  id="yaoid" type="text" name="yaoid"  autocomplete="off" class="layui-input">
+            </div>
+          </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">出库量</label>
+          <div class="layui-input-inline">
+            <input  id="ckl1" type="text" name="ckl1"  autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">出库单位</label>
+          <div class="layui-input-inline">
+            <input  id="unit" type="text" name="unit" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+      </div>
+    <a href="javascript:;" style="margin-left: 400px;" id="submitin" class="layui-btn layui-btn-normal layui-btn-lg" lay-event="more">提交</a>
+    <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+          <a href="javascript:;" class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</a>
+          <a href="javascript:;" class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</a>
+          <a href="javascript:;" class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</a>
+          
+        </div>
+      </script>
+
+    <script type="text/html" id="barDemo">
+        <a href="javascript:;" class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a href="javascript:;" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+      </script>
+    <script type="text/html" id="toolbarDemo">
+  <div class="layui-btn-container">
+    <a href="javascript:;" class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</a>
+    <a href="javascript:;" class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</a>
+    <a href="javascript:;" class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</a>
+  </div>
+</script>
+
+    <script type="text/html" id="barDemo">
+  <a href="javascript:;" class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a href="javascript:;" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+
+    <script src="layui/layui.js" charset="utf-8"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
+    <script>
+
+        layui.use('table', function () {
+            var table = layui.table;
+
+            table.render({
+                elem: '#test'
+                // , url: '/test/table/demo1.json'
+                , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+                , defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+                    title: '提示'
+                    , layEvent: 'LAYTABLE_TIPS'
+                    , icon: 'layui-icon-tips'
+                }]
+                , title: '入库表'
+                , cols: [[
+                    { type: 'checkbox' }
+                    , { field: 'id', width: 80, title: 'ID', sort: true }
+                    , { field: 'name', width: 100, title: '药品名称' }
+                    // , { field: 'firsttime', width: 110, title: '生产日期', sort: true }
+                    // , { field: 'endtime', width: 120, title: '有效期' }
+                    , {edit:'test', field: 'unit', title: '出库单位', width: 220, minWidth: 100 } //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                    // , { field: 'price', title: '单价', width: 90, sort: true }
+                    // , { edit: 'text', field: 'inmany', title: '入库量', width: 90, sort: true }
+                    , { field: 'inventory', title: '库存', width: 90, }
+                    ,{field: 'tel', title: '联系电话', width: 190,}
+                    , { edit: 'text', field: 'classify', width: 137, title: '所属类别', sort: true }
+                    , { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150 }
+                ]]
+                , data: [
+                    {
+                        "id": "1", 'name': '维生素A', 'firsttime': '2021-04-23', 'endtime': '2023-05-20',
+                        'unit': '安理工皇家药店', 'price': '35', 'inmany': '0',
+                        'tel':'13695665499',
+                        'inventory': '3544', 'classify': "非处方药-保健品"
+                    },
+
+                    {
+                        "id": "2", 'name': '维生素B', 'firsttime': '2021-04-23', 'endtime': '2023-05-20',
+                        'unit': '安理工皇家药店', 'price': '35', 'inmany': '0',
+                        'tel':'19810767509',
+                        'inventory': '3544', 'classify': "非处方药-保健品"
+                    },
+
+                    {
+                        "id": "3", 'name': '维生素c', 'firsttime': '2021-04-23', 'endtime': '2023-05-20',
+                        'unit': '安理工皇家药店', 'price': '35', 'inmany': '0',
+                        'tel':'19154089241',
+                        'inventory': '3544', 'classify': "非处方药-保健品"
+                    }
+
+                ]
+                , page: true
+            });
+
+            //头工具栏事件
+            table.on('toolbar(test)', function (obj) {
+                var checkStatus = table.checkStatus(obj.config.id);
+                switch (obj.event) {
+                    case 'getCheckData':
+                        var data = checkStatus.data;
+                        layer.alert(JSON.stringify(data));
+                        break;
+                    case 'getCheckLength':
+                        var data = checkStatus.data;
+                        layer.msg('选中了：' + data.length + ' 个');
+                        break;
+                    case 'isAll':
+                        layer.msg(checkStatus.isAll ? '全选' : '未全选');
+                        break;
+
+                    //自定义头工具栏右侧图标 - 提示
+                    case 'LAYTABLE_TIPS':
+                        layer.alert('这是工具栏右侧自定义的一个图标按钮');
+                        break;
+                };
+            });
+
+            //监听行工具事件
+            table.on('tool(test)', function (obj) {
+                var data = obj.data;
+                //console.log(obj)
+                if (obj.event === 'del') {
+                    layer.confirm('真的删除行么', function (index) {
+                        obj.del();
+                        layer.close(index);
+                    });
+                } else if (obj.event === 'edit') {
+                    layer.prompt({
+                        formType: 2
+                        , value: data.email
+                    }, function (value, index) {
+                        obj.update({
+                            email: value
+                        });
+                        layer.close(index);
+                    });
+                }
+            });
+        });
+
+    </script>
+    <script>
+        document.getElementById('submitin').onclick = function () {
+            // alert(document.getElementById("tgn1").value + document.getElementById('tgn2').value);
+
+            //此部分是方便程序员调试时查看向后端发送的数据
+            // alert("id=" +document.getElementById('yaoid').value+ "&" + "出库量=" +document.getElementById('ckl1').value + "&" + "出库单位=" +document.getElementById('unit').value);
+
+
+            var xmlRequest = new XMLHttpRequest();
+            xmlRequest.open("POST", "/api/tg", true);
+
+            xmlRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            //发送到后端的值
+            xmlRequest.send("id=" +document.getElementById('yaoid').value+ "&" + "出库量=" +document.getElementById('ckl1').value + "&" + "出库单位=" + document.getElementById('unit').value);
+        }
+    </script>
+
+</body>
+
+</html>
